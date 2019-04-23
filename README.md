@@ -15,9 +15,14 @@ Run the below command to create a container for JMeter master.
 Check the running container
 # docker ps -a
 
-Run the below command to get the list of ip addresses for these containers
+Run the below command to get the list of ip addresses for these containers *****
 # docker inspect --format '{{ .Name }} => {{ .NetworkSettings.IPAddress }}' $(sudo docker ps -a -q)
 
 In case – you need to copy any files from the host to the docker container – You can issue below command. For ex: I copy the test into my JMeter master container. This command will copy my local jmeter test (docker-test.jmx) into the master container in this path: /jmeter/apache-jmeter-3.3/bin/drybar.jmx
-
 # sudo docker exec -i master sh -c 'cat > /jmeter/apache-jmeter-3.3/bin/drybar.jmx' < drybar.jmx
+
+Enter into the JMeter master container
+# docker exec -it master /bin/bash
+
+Running our test in distributed using docker containers(MASTER --> SLAVE) (assuming we are into jmeter bin folder, where drybar.jmx file is placed)
+# jmeter -n -t drybar.jmx -R<IP of SLAVE) *****
